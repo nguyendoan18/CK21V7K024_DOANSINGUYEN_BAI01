@@ -1,9 +1,29 @@
+// const app = require("./app");
+// const config = require("./app/config");
+
+// //Start server
+// const PORT = config.app.port;
+
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}.`);
+// })
+
 const app = require("./app");
 const config = require("./app/config");
+const mongodb = require("./app/utils/mongodb.util");
 
-//Start server
-const PORT = config.app.port;
+async function startServer() {
+    try {
+        await mongodb.connect (config.db.uri);
+        console.log("Connected to the database!");
+        const PORT = config.app.port;
+        app.listen(PORT,() => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.log("Cannot connect to the database!", error);
+        process.exit();
+    }
+}
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
-})
+startServer();
