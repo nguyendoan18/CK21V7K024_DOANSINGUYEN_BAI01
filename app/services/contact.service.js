@@ -62,12 +62,20 @@ class ContactService {
         return result.value;
     }
     
+    // async delete(id) {
+    //     const result = await this.contact.findOneAndDelete({
+    //         _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
+    //     });
+    //     return result.value;
+    // }
+
     async delete(id) {
         const result = await this.contact.findOneAndDelete({
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         });
         return result.value;
     }
+        
      
     async deleteAll() {
         const result = await this.contact.deleteMany({});

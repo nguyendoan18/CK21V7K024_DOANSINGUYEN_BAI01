@@ -91,7 +91,7 @@ exports.update = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
     try {
         const contactService = new ContactService(MongoDB.client);
-        const document = await contactService.findById(req.params.id);
+        const document = await contactService.delete(req.params.id);
         if(!document){
             return new (new ApiError(404, "Contact not found"));
         } 
